@@ -14,7 +14,7 @@ def navegacion_all():
         data[i] = {'drone_id': obj.nav_cod_drones,
                                              'latitude': obj.nav_latitud,
                                              'longitude': obj.nav_longitud,
-                                             'height': obj.nav_altura,
+                                             'altitude': obj.nav_altura,
                                             'date': obj.nav_fecha_hora}
         i += 1
 
@@ -37,7 +37,7 @@ def navegacion_drone_id_and_date(drone_id, sdate, edate):
     for obj in ob:
         data[i] = {'latitude': obj.nav_latitud,
                    'longitude': obj.nav_longitud,
-                   'height': obj.nav_altura,
+                   'altitude': obj.nav_altura,
                    'date': obj.nav_fecha_hora}
         i += 1
 

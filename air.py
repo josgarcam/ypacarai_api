@@ -34,11 +34,10 @@ def air_place_drone_id_and_date(drone_id, sdate, edate):
     data = {}
     i = 0
     for obj in ob:
-        data[i] = {'drone_id': obj.par_aire_cod_drones,
-                   'fecha': obj.par_aire_fecha_hora,
-                   'lat': obj.par_aire_sepro_lat,
-                   'log': obj.par_aire_sepro_log,
-                   'alt': obj.par_aire_sepro_alt
+        data[i] = {'date': obj.par_aire_fecha_hora,
+                   'latitude': obj.par_aire_sepro_lat,
+                   'longitude': obj.par_aire_sepro_log,
+                   'altitude': obj.par_aire_sepro_alt
                    }
 
         i += 1

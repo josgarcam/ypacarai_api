@@ -15,7 +15,7 @@ def water_place():
                     'date': obj.par_agua_fecha_hora,
                     'latitude': obj.par_agua_sw_lat,
                     'longitude': obj.par_agua_sw_log,
-                    'height': obj.par_agua_sw_alt
+                    'altitude': obj.par_agua_sw_alt
                    }
 
         i += 1
@@ -39,11 +39,10 @@ def water_drone_id_and_date(drone_id, sdate, edate):
     i = 0
     for obj in ob:
         data[i] = {'drone_id': obj.par_agua_cod_drone,
-                   'fecha': obj.par_agua_fecha_hora,
-                   'lat': obj.par_agua_sw_lat,
-                   'log': obj.par_agua_sw_log,
-                   'alt': obj.par_agua_sw_alt,
-                   'fecha': obj.par_agua_fecha_hora
+                   'date': obj.par_agua_fecha_hora,
+                   'latitude': obj.par_agua_sw_lat,
+                   'longitude': obj.par_agua_sw_log,
+                   'altitude': obj.par_agua_sw_alt
                    }
 
         i += 1
@@ -137,8 +136,7 @@ def water_swions_id_and_date(drone_id, sdate, edate):
     data = {}
     i = 0
     for obj in ob:
-        data[i] = {'drone_id': obj.par_agua_cod_drone,
-                    'fecha': obj.par_agua_fecha_hora,
+        data[i] = {'date': obj.par_agua_fecha_hora,
                    'swions_pm': obj.par_agua_swions_pm,
                     'swions_no3_conc': obj.par_agua_swions_no3_conc,
                     'swions_nh4_conc': obj.par_agua_swions_nh4_conc,
