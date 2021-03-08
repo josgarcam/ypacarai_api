@@ -38,8 +38,7 @@ def water_drone_id_and_date(drone_id, sdate, edate):
     data = {}
     i = 0
     for obj in ob:
-        data[i] = {'drone_id': obj.par_agua_cod_drone,
-                   'date': obj.par_agua_fecha_hora,
+        data[i] = {'date': obj.par_agua_fecha_hora,
                    'latitude': obj.par_agua_sw_lat,
                    'longitude': obj.par_agua_sw_log,
                    'altitude': obj.par_agua_sw_alt
