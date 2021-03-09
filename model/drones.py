@@ -1,5 +1,5 @@
-from models import Drones
-import db
+from model.models import Drones
+from model import db
 
 
 def drones_all():
@@ -9,13 +9,13 @@ def drones_all():
     data = {}
     for obj in ob:
         data[i] = {'drone_id': obj.drn_cod_drones,
-                    'name': obj.drn_caracteristicas}
+                   'name': obj.drn_caracteristicas}
         i += 1
 
     return (data)
 
-def drones_id(id):
 
+def drones_id(id):
     db.Base.metadata.create_all(db.engine)
     ob = db.session.query(Drones).filter_by(drn_cod_drones=id)
     data = {}

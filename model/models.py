@@ -1,6 +1,4 @@
-import db
-from flask import jsonify
-import json
+from model import db
 
 from sqlalchemy import Column, Integer, String, Float, Date
 
