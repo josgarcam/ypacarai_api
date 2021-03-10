@@ -1,6 +1,6 @@
 from model import db
 
-from sqlalchemy import Column, Integer, String, Float, Date
+from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
 
 
 class Water(db.Base):
@@ -189,4 +189,87 @@ class Air(db.Base):
         self.par_aire_sepro_temp = par_aire_sepro_temp
         self.par_aire_dron_nivel_bateria = par_aire_dron_nivel_bateria
 
+class Measurement(db.Base):
+    __tablename__ = 'measurement'
 
+    date = Column(Date)
+    id_drone = Column(Integer)
+    latitude = Column(Float)
+    altitude = Column(Float)
+    longitude = Column(Float)
+    id_measurement = Column(Integer, primary_key=True)
+    season = Column(Integer)
+    deployment = Column(Integer)
+
+    def __init__(self, date, id_drone, latitude, altitude, longitude, id_measurement, season, deployment):
+
+        self.date = date
+        self.id_drone = id_drone
+        self.latitude = latitude
+        self.altitude = altitude
+        self.longitude = longitude
+        self.id_measurement = id_measurement
+        self.season = season
+        self.deployment = deployment
+
+class Sw(db.Base):
+    __tablename__ = 'sw_sensor'
+
+    id = Column(Integer, primary_key=True)
+    pm = Column(Float)
+    ph = Column(Float)
+    od = Column(Float)
+    ce = Column(Float)
+    orp = Column(Float)
+    temper = Column(Float)
+    ph_volt = Column(Float)
+    od_volt = Column(Float)
+    ce_res = Column(Float)
+    orp_volt = Column(Float)
+    id_measurement = Column(Integer, ForeignKey('id_measurement'))
+    season = Column(Integer)
+    deployment = Column(Integer)
+
+    def __init__(self, pm, ph, od, ce, orp, temper, ph_volt, od_volt, ce_res, orp_volt, id_measurement, season, deployment):
+
+        self.pm = pm
+        self.ph = ph
+        self.od = od
+        self.ce = ce
+        self.orp = orp
+        self.temper = temper
+        self.ph_volt = ph_volt
+        self.od_volt = od_volt
+        self.ce_res = ce_res
+        self.orp_volt = orp_volt
+        self.id_measurement = id_measurement
+        self.season = season
+        self.deployment = deployment
+
+class Swions(db.Base):
+    __tablename__ = 'swions_sensor'
+
+    id = Column(Integer, primary_key=True)
+    pm = Column(Float)
+    no3_conc = Column(Float)
+    nh4_conc = Column(Float)
+    temper = Column(Float)
+    no3_volt = Column(Float)
+    nh4_volt = Column(Float)
+    nivel_bateria = Column(Float)
+    id_measurement = Column(Integer, ForeignKey('id_measurement'))
+    season = Column(Integer)
+    deployment = Column(Integer)
+
+    def __init__(self, pm, no3_conc, nh4_conc, temper, no3_volt, nh4_volt, nivel_bateria, id_measurement, season, deployment):
+
+        self.pm = pm
+        self.no3_conc = no3_conc
+        self.nh4_conc = nh4_conc
+        self.temper = temper
+        self.no3_volt = no3_volt
+        self.nh4_volt = nh4_volt
+        self.nivel_bateria = nivel_bateria
+        self.id_measurement = id_measurement
+        self.season = season
+        self.deployment = deployment
