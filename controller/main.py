@@ -8,6 +8,7 @@ from model.sw_sensor import sw_all, sw_season, sw_droneId
 from model.swions_sensor import swions_all, swions_season, swions_droneId
 from model.swxtr_sensor import swxtr_all, swxtr_season, swxtr_droneId
 from model.sepro_sensor import sepro_all, sepro_season, sepro_droneId
+from model.seasons import seasons_all, seasons_season
 
 from view.view import to_json
 
@@ -104,6 +105,16 @@ def sepro_droneId_controller(id_drone):
     deployment = request.args.get('deployment', '')
     return to_json(sepro_droneId(id_drone, season, deployment))
 
+##### ********* Seasons ******** ####
+@app.route('/Seasons', methods=['GET'])
+def seasons_all_controller():
+    return to_json(seasons_all())
+
+@app.route('/Seasons/<int:id_season>', methods=['GET'])
+def seasons_season_all_controller(id_season):
+    mission_id = request.args.get('mission_id', '')
+    deployment = request.args.get('deployment', '')
+    return to_json(seasons_season(id_season, deployment, mission_id))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5002)

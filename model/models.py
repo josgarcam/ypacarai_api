@@ -1,6 +1,6 @@
 from model import db
 
-from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, Boolean
 
 
 class Water(db.Base):
@@ -344,4 +344,28 @@ class Sepro(db.Base):
         self.id_measurement = id_measurement
         self.season = season
         self.deployment = deployment
+
+class Seasons(db.Base):
+    __tablename__ = 'seasons'
+
+    id_movement = Column(Integer, primary_key=True)
+    season_id = Column(Float)
+    deployment_id = Column(Float)
+    mission_id = Column(Float)
+    mission_value = Column(Boolean)
+    season_descp = Column(String)
+    deployment_descp = Column(String)
+    mission_descp = Column(String)
+
+
+    def __init__(self, id_movement, season_id, deployment_id, mission_id, mission_value,
+                 season_descp, deployment_descp, mission_descp):
+        self.id_movement = id_movement
+        self.season_id = season_id
+        self.deployment_id = deployment_id
+        self.mission_id = mission_id
+        self.mission_value = mission_value
+        self.season_descp = season_descp
+        self.deployment_descp = deployment_descp
+        self.mission_descp = mission_descp
 
