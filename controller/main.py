@@ -66,5 +66,6 @@ def swions_droneId_controller(id_drone):
     deployment = request.args.get('deployment', '')
     return to_json(swions_droneId(id_drone, season, deployment))
 
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5002)
