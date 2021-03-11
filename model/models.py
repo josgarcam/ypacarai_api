@@ -273,3 +273,75 @@ class Swions(db.Base):
         self.id_measurement = id_measurement
         self.season = season
         self.deployment = deployment
+
+
+class Swxtr(db.Base):
+    __tablename__ = 'swxtr_sensor'
+
+    id = Column(Integer, primary_key=True)
+    pm = Column(Float)
+    od_sat = Column(Float)
+    od_ppm = Column(Float)
+    od_temp = Column(Float)
+    ntu_ntu = Column(Float)
+    ntu_temp = Column(Float)
+    sac_dbo = Column(Float)
+    sac_dqo = Column(Float)
+    sac_cot = Column(Float)
+    sac_fau = Column(Float)
+    sac_temp = Column(Float)
+    sac_sac = Column(Float)
+    nivel_bateria = Column(Float)
+    id_measurement = Column(Integer, ForeignKey('id_measurement'))
+    season = Column(Integer)
+    deployment = Column(Integer)
+
+    def __init__(self, pm, od_sat, od_ppm, od_temp, ntu_ntu, ntu_temp, sac_dbo, sac_dqo, sac_cot, sac_fau, sac_temp, sac_sac, nivel_bateria, id_measurement, season, deployment):
+        self.pm = pm
+        self.od_sat = od_sat
+        self.od_ppm = od_ppm
+        self.od_temp = od_temp
+        self.ntu_ntu = ntu_ntu
+        self.ntu_temp = ntu_temp
+        self.sac_dbo = sac_dbo
+        self.sac_dqo = sac_dqo
+        self.sac_cot = sac_cot
+        self.sac_fau = sac_fau
+        self.sac_temp = sac_temp
+        self.sac_sac = sac_sac
+        self.nivel_bateria = nivel_bateria
+        self.id_measurement = id_measurement
+        self.season = season
+        self.deployment = deployment
+
+
+class Sepro(db.Base):
+    __tablename__ = 'sepro_sensor'
+
+    id = Column(Integer, primary_key=True)
+    pm = Column(Float)
+    c02 = Column(Float)
+    h2s = Column(Float)
+    o3 = Column(Float)
+    hr = Column(Float)
+    pres = Column(Float)
+    temper = Column(Float)
+    nivel_bateria = Column(Float)
+    id_measurement = Column(Integer, ForeignKey('id_measurement'))
+    season = Column(Integer)
+    deployment = Column(Integer)
+
+    def __init__(self, id, pm, c02, h2s, o3, hr, pres, temper, nivel_bateria, id_measurement, season, deployment):
+        self.id = id
+        self.pm = pm
+        self.c02 = c02
+        self.h2s = h2s
+        self.o3 = o3
+        self.hr = hr
+        self.pres = pres
+        self.temper = temper
+        self.nivel_bateria = nivel_bateria
+        self.id_measurement = id_measurement
+        self.season = season
+        self.deployment = deployment
+

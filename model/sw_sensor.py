@@ -59,7 +59,6 @@ def sw_season(season, deployment, drone_id):
                     'latitude': obj.Measurement.latitude,
                     'altitude': obj.Measurement.altitude,
                     'longitude': obj.Measurement.longitude,
-                    'season': obj.Sw.season,
                     'deployment': obj.Sw.deployment,
                     'pm': obj.Sw.pm,
                     'ph': obj.Sw.ph,
@@ -100,7 +99,6 @@ def sw_droneId(drone_id, season, deployment):
 
     for obj in ob:
         data[i] = {'date': obj.Measurement.date,
-                    'id_drone': obj.Measurement.id_drone,
                     'latitude': obj.Measurement.latitude,
                     'altitude': obj.Measurement.altitude,
                     'longitude': obj.Measurement.longitude,

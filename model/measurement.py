@@ -47,7 +47,6 @@ def measurement_point_season(season, deployment, drone_id):
                    'altitude': obj.altitude,
                    'longitude': obj.longitude,
                    'id_measurement': obj.id_measurement,
-                   'season': obj.season,
                    'deployment': obj.deployment
                    }
         i += 1
