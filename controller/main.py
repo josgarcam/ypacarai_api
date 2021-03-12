@@ -1,5 +1,6 @@
 from flask import Flask, request
-
+from model.navegacion import navegacion_all, navegacion_drone_id_and_date
+from model.drones import drones_all, drones_id
 from model.measurement import measurement_point_all, measurement_point_season, measurement_point_droneId
 from model.seasons import seasons_all, seasons_season
 from model.sepro_sensor import sepro_all, sepro_season, sepro_droneId
@@ -10,6 +11,26 @@ from view.view import to_json
 
 app = Flask(__name__)
 
+#### ********* Navegacion ******** ####
+@app.route('/Navegacion/', methods=['GET'])
+def navegacion():
+    return to_json(navegacion_all())
+
+@app.route('/Navegacion/Drone/<int:drone_id>', methods=['GET'])
+def navegacion_filter_by_drone_id_and_date(drone_id):
+    sdate = request.args.get('sdate','')
+    edate = request.args.get('edate','')
+    return to_json(navegacion_drone_id_and_date(drone_id, sdate, edate))
+
+#### ********* Drones ******** ####
+
+@app.route('/Drones/', methods=['GET'])
+def drones():
+    return to_json(drones_all())
+
+@app.route('/Drones/<int:id>')
+def drones_filter_id(id):
+    return to_json(drones_id(id))
 
 #### ********* Measurement Point ******** ####
 

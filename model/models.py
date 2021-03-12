@@ -115,42 +115,38 @@ class Water(db.Base):
     def imprime(self):
         print("Hola mundo")
 
-
 class Drones(db.Base):
     __tablename__ = 'drones'
 
-    drn_cod_drones = Column(Integer, primary_key=True)
-    drn_caracteristicas = Column(String)
+    id_drone = Column(Integer, primary_key=True)
+    drone_features = Column(String)
 
-    def __init__(self, drn_cod_drones, drn_caracteristicas):
+    def __init__(self, id_drone, drone_features):
 
-        self.drn_cod_drones = drn_cod_drones
-        self.drn_caracteristicas = drn_caracteristicas
-
-
+        self.id_drone = id_drone
+        self.drone_features = drone_features
 
 class Navegacion(db.Base):
     __tablename__ = 'navegacion'
 
-    nav_cod_navegacion = Column(Integer, primary_key=True)
-    nav_fecha_hora = Column(Date)
-    nav_cod_drones = Column(Integer)
-    nav_latitud = Column(Float)
-    nav_longitud = Column(Float)
-    nav_altura = Column(Float)
-    nav_nivel_bateria_drones = Column(Float)
+    id = Column(Integer, primary_key=True)
+    date = Column(Date)
+    id_drone = Column(Integer)
+    latitude = Column(Float)
+    longitude = Column(Float)
+    altitude = Column(Float)
+    nivel_bateria = Column(Float)
+    id_movement = Column(Integer)
 
-    def __init__(self, nav_cod_navegacion, nav_fecha_hora, nav_cod_drones, nav_latitud, nav_longitud, nav_altura,
-                 nav_nivel_bateria_drones):
-        self.nav_cod_navegacion = nav_cod_navegacion
-        self.nav_fecha_hora = nav_fecha_hora
-        self.nav_cod_drones = nav_cod_drones
-        self.nav_latitud = nav_latitud
-        self.nav_longitud = nav_longitud
-        self.nav_altura = nav_altura
-        self.nav_nivel_bateria_drones = nav_nivel_bateria_drones
-
-########## AIRE ##########
+    def __init__(self, id, date, id_drone, latitude, longitude, altitude, nivel_bateria, id_movement):
+        self.id = id
+        self.date = date
+        self.id_drone = id_drone
+        self.latitude = latitude
+        self.longitude = longitude
+        self.altitude = altitude
+        self.nivel_bateria = nivel_bateria
+        self.id_movement = id_movement
 
 class Air(db.Base):
     __tablename__ = 'parametros_aire'
@@ -240,7 +236,6 @@ class Sw(db.Base):
         self.orp_volt = orp_volt
         self.id_measurement = id_measurement
 
-
 class Swions(db.Base):
     __tablename__ = 'swions_sensor'
 
@@ -302,7 +297,6 @@ class Swxtr(db.Base):
         self.id_measurement = id_measurement
         self.season = season
         self.deployment = deployment
-
 
 class Sepro(db.Base):
     __tablename__ = 'sepro_sensor'
