@@ -198,10 +198,9 @@ class Measurement(db.Base):
     altitude = Column(Float)
     longitude = Column(Float)
     id_measurement = Column(Integer, primary_key=True)
-    season = Column(Integer)
-    deployment = Column(Integer)
+    id_movement = Column(Integer)
 
-    def __init__(self, date, id_drone, latitude, altitude, longitude, id_measurement, season, deployment):
+    def __init__(self, date, id_drone, latitude, altitude, longitude, id_measurement, id_movement):
 
         self.date = date
         self.id_drone = id_drone
@@ -209,8 +208,7 @@ class Measurement(db.Base):
         self.altitude = altitude
         self.longitude = longitude
         self.id_measurement = id_measurement
-        self.season = season
-        self.deployment = deployment
+        self.id_movement = id_movement
 
 class Sw(db.Base):
     __tablename__ = 'sw_sensor'
@@ -227,10 +225,8 @@ class Sw(db.Base):
     ce_res = Column(Float)
     orp_volt = Column(Float)
     id_measurement = Column(Integer, ForeignKey('id_measurement'))
-    season = Column(Integer)
-    deployment = Column(Integer)
 
-    def __init__(self, pm, ph, od, ce, orp, temper, ph_volt, od_volt, ce_res, orp_volt, id_measurement, season, deployment):
+    def __init__(self, pm, ph, od, ce, orp, temper, ph_volt, od_volt, ce_res, orp_volt, id_measurement):
 
         self.pm = pm
         self.ph = ph
@@ -243,8 +239,7 @@ class Sw(db.Base):
         self.ce_res = ce_res
         self.orp_volt = orp_volt
         self.id_measurement = id_measurement
-        self.season = season
-        self.deployment = deployment
+
 
 class Swions(db.Base):
     __tablename__ = 'swions_sensor'
@@ -258,10 +253,9 @@ class Swions(db.Base):
     nh4_volt = Column(Float)
     nivel_bateria = Column(Float)
     id_measurement = Column(Integer, ForeignKey('id_measurement'))
-    season = Column(Integer)
-    deployment = Column(Integer)
 
-    def __init__(self, pm, no3_conc, nh4_conc, temper, no3_volt, nh4_volt, nivel_bateria, id_measurement, season, deployment):
+
+    def __init__(self, pm, no3_conc, nh4_conc, temper, no3_volt, nh4_volt, nivel_bateria, id_measurement):
 
         self.pm = pm
         self.no3_conc = no3_conc
@@ -271,9 +265,6 @@ class Swions(db.Base):
         self.nh4_volt = nh4_volt
         self.nivel_bateria = nivel_bateria
         self.id_measurement = id_measurement
-        self.season = season
-        self.deployment = deployment
-
 
 class Swxtr(db.Base):
     __tablename__ = 'swxtr_sensor'
@@ -293,8 +284,6 @@ class Swxtr(db.Base):
     sac_sac = Column(Float)
     nivel_bateria = Column(Float)
     id_measurement = Column(Integer, ForeignKey('id_measurement'))
-    season = Column(Integer)
-    deployment = Column(Integer)
 
     def __init__(self, pm, od_sat, od_ppm, od_temp, ntu_ntu, ntu_temp, sac_dbo, sac_dqo, sac_cot, sac_fau, sac_temp, sac_sac, nivel_bateria, id_measurement, season, deployment):
         self.pm = pm
@@ -328,10 +317,8 @@ class Sepro(db.Base):
     temper = Column(Float)
     nivel_bateria = Column(Float)
     id_measurement = Column(Integer, ForeignKey('id_measurement'))
-    season = Column(Integer)
-    deployment = Column(Integer)
 
-    def __init__(self, id, pm, c02, h2s, o3, hr, pres, temper, nivel_bateria, id_measurement, season, deployment):
+    def __init__(self, id, pm, c02, h2s, o3, hr, pres, temper, nivel_bateria, id_measurement):
         self.id = id
         self.pm = pm
         self.c02 = c02
@@ -342,24 +329,21 @@ class Sepro(db.Base):
         self.temper = temper
         self.nivel_bateria = nivel_bateria
         self.id_measurement = id_measurement
-        self.season = season
-        self.deployment = deployment
 
 class Seasons(db.Base):
     __tablename__ = 'seasons'
 
     id_movement = Column(Integer, primary_key=True)
-    season_id = Column(Float)
-    deployment_id = Column(Float)
-    mission_id = Column(Float)
+    season_id = Column(Integer)
+    deployment_id = Column(Integer)
+    mission_id = Column(Integer)
     mission_value = Column(Boolean)
     season_descp = Column(String)
     deployment_descp = Column(String)
     mission_descp = Column(String)
 
 
-    def __init__(self, id_movement, season_id, deployment_id, mission_id, mission_value,
-                 season_descp, deployment_descp, mission_descp):
+    def __init__(self, id_movement, season_id, deployment_id, mission_id, mission_value, season_descp, deployment_descp, mission_descp):
         self.id_movement = id_movement
         self.season_id = season_id
         self.deployment_id = deployment_id

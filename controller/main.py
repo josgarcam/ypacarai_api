@@ -1,15 +1,11 @@
-from flask import Flask, request, jsonify
-from model.drones import drones_all, drones_id
-from model.navegacion import navegacion_all, navegacion_drone_id_and_date
-from model.water import water_place, water_drone_id_and_date, water_sw, water_sw_id_and_date, water_swions, water_swions_id_and_date, water_swxtr, water_swxtr_id_and_date
-from model.air import air_place, air_place_drone_id_and_date, air_sepro, air_sepro_id_and_date
+from flask import Flask, request
+
 from model.measurement import measurement_point_all, measurement_point_season, measurement_point_droneId
+from model.seasons import seasons_all, seasons_season
+from model.sepro_sensor import sepro_all, sepro_season, sepro_droneId
 from model.sw_sensor import sw_all, sw_season, sw_droneId
 from model.swions_sensor import swions_all, swions_season, swions_droneId
 from model.swxtr_sensor import swxtr_all, swxtr_season, swxtr_droneId
-from model.sepro_sensor import sepro_all, sepro_season, sepro_droneId
-from model.seasons import seasons_all, seasons_season
-
 from view.view import to_json
 
 app = Flask(__name__)

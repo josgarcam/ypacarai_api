@@ -1,9 +1,9 @@
 from model.models import Seasons
 from model import db
 
-def seasons_all(season_id):
+def seasons_all():
     db.Base.metadata.create_all(db.engine)
-    ob = db.session.query(Seasons).filter(Seasons.season_id == season_id)
+    ob = db.session.query(Seasons).all()
 
     data = {}
     i = 0

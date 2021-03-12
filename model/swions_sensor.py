@@ -1,10 +1,13 @@
-from model.models import Measurement, Swions
+from model.models import Measurement, Swions, Seasons
 from model import db
 
 def swions_all():
 
     db.Base.metadata.create_all(db.engine)
-    ob = db.session.query(Measurement, Swions).join(Swions, Measurement.id_measurement == Swions.id_measurement).all()
+    ob = db.session.query(Measurement, Swions, Seasons).join(Swions, Measurement.id_measurement == Swions.id_measurement).\
+        join(Seasons, Measurement.id_movement == Seasons.id_movement)
+
+
     data = {}
 
     i = 0
@@ -14,8 +17,8 @@ def swions_all():
                     'latitude': obj.Measurement.latitude,
                     'altitude': obj.Measurement.altitude,
                     'longitude': obj.Measurement.longitude,
-                    'season': obj.Measurement.season,
-                    'deployment': obj.Measurement.deployment,
+                    'season': obj.Seasons.season_id,
+                    'deployment': obj.Seasons.deployment_id,
                     'pm': obj.Swions.pm,
                     'no3_conc': obj.Swions.no3_conc,
                     'nh4_conc': obj.Swions.nh4_conc,
@@ -33,19 +36,21 @@ def swions_season(season, deployment, drone_id):
 
     if deployment:
         if drone_id:
-            ob = db.session.query(Measurement, Swions).join(Swions, Measurement.id_measurement == Swions.id_measurement).\
-                filter(Measurement.season == season).filter(Measurement.deployment == deployment). \
-                filter(Measurement.id_drone == drone_id)
+            ob = db.session.query(Measurement, Swions, Seasons).join(Swions, Measurement.id_measurement == Swions.id_measurement). \
+                join(Seasons, Measurement.id_movement == Seasons.id_movement).filter(Seasons.season_id == season). \
+                filter(Seasons.deployment_id == deployment).filter(Measurement.id_drone == drone_id)
         else:
-            ob = db.session.query(Measurement, Swions).join(Swions, Measurement.id_measurement == Swions.id_measurement).\
-                filter(Measurement.season == season).filter(Measurement.deployment == deployment)
+            ob = db.session.query(Measurement, Swions, Seasons).join(Swions, Measurement.id_measurement == Swions.id_measurement). \
+                join(Seasons, Measurement.id_movement == Seasons.id_movement).filter(Seasons.season_id == season). \
+                filter(Seasons.deployment_id == deployment)
     else:
         if drone_id:
-            ob = db.session.query(Measurement, Swions).join(Swions, Measurement.id_measurement == Swions.id_measurement) \
-                .filter(Measurement.season == season).filter(Measurement.id_drone == drone_id)
+            ob = db.session.query(Measurement, Swions, Seasons).join(Swions, Measurement.id_measurement == Swions.id_measurement). \
+                join(Seasons, Measurement.id_movement == Seasons.id_movement).filter(Seasons.season_id == season). \
+                filter(Measurement.id_drone == drone_id)
         else:
-            ob = db.session.query(Measurement, Swions).join(Swions, Measurement.id_measurement == Swions.id_measurement)\
-            .filter(Measurement.season == season)
+            ob = db.session.query(Measurement, Swions, Seasons).join(Swions, Measurement.id_measurement == Swions.id_measurement). \
+                join(Seasons, Measurement.id_movement == Seasons.id_movement).filter(Seasons.season_id == season)
 
     i = 0
     data = {}
@@ -56,7 +61,7 @@ def swions_season(season, deployment, drone_id):
                    'latitude': obj.Measurement.latitude,
                    'altitude': obj.Measurement.altitude,
                    'longitude': obj.Measurement.longitude,
-                   'deployment': obj.Measurement.deployment,
+                    'deployment': obj.Seasons.deployment_id,
                    'pm': obj.Swions.pm,
                    'no3_conc': obj.Swions.no3_conc,
                    'nh4_conc': obj.Swions.nh4_conc,
@@ -74,19 +79,21 @@ def swions_droneId(drone_id, season, deployment):
 
     if season:
         if deployment:
-            ob = db.session.query(Measurement, Swions).join(Swions, Measurement.id_measurement == Swions.id_measurement). \
-                filter(Measurement.id_drone == drone_id).filter(Measurement.season == season). \
-                filter(Measurement.deployment == deployment).all()
+            ob = db.session.query(Measurement, Swions, Seasons).join(Swions, Measurement.id_measurement == Swions.id_measurement). \
+                join(Seasons, Measurement.id_movement == Seasons.id_movement).filter(Seasons.season_id == season). \
+                filter(Seasons.deployment_id == deployment).filter(Measurement.id_drone == drone_id).all()
         else:
-            ob = db.session.query(Measurement, Swions).join(Swions, Measurement.id_measurement == Swions.id_measurement). \
-                filter(Measurement.id_drone == drone_id).filter(Measurement.season == season).all()
+            ob = db.session.query(Measurement, Swions, Seasons).join(Swions, Measurement.id_measurement == Swions.id_measurement). \
+                join(Seasons, Measurement.id_movement == Seasons.id_movement).filter(Seasons.season_id == season). \
+                filter(Measurement.id_drone == drone_id)
     else:
         if deployment:
-            ob = db.session.query(Measurement, Swions).join(Swions, Measurement.id_measurement == Swions.id_measurement). \
-                filter(Measurement.id_drone == drone_id).filter(Measurement.deployment == deployment).all()
+            ob = db.session.query(Measurement, Swions, Seasons).join(Swions, Measurement.id_measurement == Swions.id_measurement). \
+                join(Seasons, Measurement.id_movement == Seasons.id_movement). \
+                filter(Seasons.deployment_id == deployment).filter(Measurement.id_drone == drone_id)
         else:
-            ob = db.session.query(Measurement, Swions).join(Swions, Measurement.id_measurement == Swions.id_measurement). \
-                filter(Measurement.id_drone == drone_id)
+            ob = db.session.query(Measurement, Swions, Seasons).join(Swions, Measurement.id_measurement == Swions.id_measurement). \
+                join(Seasons, Measurement.id_movement == Seasons.id_movement).filter(Measurement.id_drone == drone_id)
 
     i = 0
     data = {}
@@ -96,8 +103,8 @@ def swions_droneId(drone_id, season, deployment):
                    'latitude': obj.Measurement.latitude,
                    'altitude': obj.Measurement.altitude,
                    'longitude': obj.Measurement.longitude,
-                   'season': obj.Measurement.season,
-                   'deployment': obj.Measurement.deployment,
+                   'season': obj.Seasons.season_id,
+                    'deployment': obj.Seasons.deployment_id,
                    'pm': obj.Swions.pm,
                    'no3_conc': obj.Swions.no3_conc,
                    'nh4_conc': obj.Swions.nh4_conc,

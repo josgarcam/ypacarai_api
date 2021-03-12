@@ -1,21 +1,21 @@
-from model.models import Measurement
+from model.models import Measurement, Seasons
 from model import db
 
 
 def measurement_point_all():
     db.Base.metadata.create_all(db.engine)
-    ob = db.session.query(Measurement).all()
+    ob = db.session.query(Measurement, Seasons).join(Seasons, Measurement.id_movement == Seasons.id_movement)
     data = {}
     i = 0
     for obj in ob:
-        data[i] = {'date': obj.date,
-                   'id_drone': obj.id_drone,
-                   'latitude': obj.latitude,
-                   'altitude': obj.altitude,
-                   'longitude': obj.longitude,
-                   'id_measurement': obj.id_measurement,
-                   'season': obj.season,
-                   'deployment': obj.deployment
+        data[i] = {'date': obj.Measurement.date,
+                   'id_drone': obj.Measurement.id_drone,
+                   'latitude': obj.Measurement.latitude,
+                   'altitude': obj.Measurement.altitude,
+                   'longitude': obj.Measurement.longitude,
+                   'id_measurement': obj.Measurement.id_measurement,
+                   'season': obj.Seasons.season_id,
+                   'deployment': obj.Seasons.deployment_id
                    }
         i += 1
 
@@ -26,28 +26,30 @@ def measurement_point_season(season, deployment, drone_id):
 
     if deployment:
         if drone_id:
-            ob = db.session.query(Measurement).filter(Measurement.season == season).filter(
-                Measurement.deployment == deployment). \
+            ob = db.session.query(Measurement, Seasons).join(Seasons, Measurement.id_movement == Seasons.id_movement).\
+                filter(Seasons.season_id == season).filter(Seasons.deployment_id == deployment).\
                 filter(Measurement.id_drone == drone_id)
         else:
-            ob = db.session.query(Measurement).filter(Measurement.season == season).filter(
-                Measurement.deployment == deployment)
+            ob = db.session.query(Measurement, Seasons).join(Seasons, Measurement.id_movement == Seasons.id_movement). \
+                filter(Seasons.season_id == season).filter(Seasons.deployment_id == deployment)
     else:
         if drone_id:
-            ob = db.session.query(Measurement).filter(Measurement.season == season).filter(Measurement.id_drone == drone_id)
+            ob = db.session.query(Measurement, Seasons).join(Seasons, Measurement.id_movement == Seasons.id_movement). \
+                filter(Seasons.season_id == season).filter(Measurement.id_drone == drone_id)
         else:
-            ob = db.session.query(Measurement).filter(Measurement.season == season)
+            ob = db.session.query(Measurement, Seasons).join(Seasons, Measurement.id_movement == Seasons.id_movement). \
+                filter(Seasons.season_id == season)
 
     data = {}
     i = 0
     for obj in ob:
-        data[i] = {'date': obj.date,
-                   'id_drone': obj.id_drone,
-                   'latitude': obj.latitude,
-                   'altitude': obj.altitude,
-                   'longitude': obj.longitude,
-                   'id_measurement': obj.id_measurement,
-                   'deployment': obj.deployment
+        data[i] = {'date': obj.Measurement.date,
+                   'id_drone': obj.Measurement.id_drone,
+                   'latitude': obj.Measurement.latitude,
+                   'altitude': obj.Measurement.altitude,
+                   'longitude': obj.Measurement.longitude,
+                   'id_measurement': obj.Measurement.id_measurement,
+                   'deployment': obj.Seasons.deployment_id
                    }
         i += 1
     return (data)
@@ -57,27 +59,30 @@ def measurement_point_droneId(drone_id, season, deployment):
 
     if season:
         if deployment:
-            ob = db.session.query(Measurement). filter(Measurement.id_drone == drone_id).filter(Measurement.season == season).\
-                filter(Measurement.deployment == deployment)
+            ob = db.session.query(Measurement, Seasons).join(Seasons, Measurement.id_movement == Seasons.id_movement). \
+                filter(Seasons.season_id == season).filter(Seasons.deployment_id == deployment). \
+                filter(Measurement.id_drone == drone_id)
         else:
-            ob = db.session.query(Measurement).filter(Measurement.id_drone == drone_id).filter(
-                Measurement.season == season)
+            ob = db.session.query(Measurement, Seasons).join(Seasons, Measurement.id_movement == Seasons.id_movement). \
+                filter(Seasons.season_id == season).filter(Measurement.id_drone == drone_id)
     else:
         if deployment:
-            ob = db.session.query(Measurement).filter(Measurement.id_drone == drone_id).filter(Measurement.deployment == deployment)
+           ob = db.session.query(Measurement, Seasons).join(Seasons, Measurement.id_movement == Seasons.id_movement).\
+                filter(Measurement.id_drone == drone_id).filter(Seasons.deployment_id == deployment)
         else:
-            ob = db.session.query(Measurement).filter(Measurement.id_drone == drone_id)
+            ob = db.session.query(Measurement, Seasons).join(Seasons, Measurement.id_movement == Seasons.id_movement).\
+                filter(Measurement.id_drone == drone_id)
 
     data = {}
     i = 0
     for obj in ob:
-        data[i] = {'date': obj.date,
-                   'latitude': obj.latitude,
-                   'altitude': obj.altitude,
-                   'longitude': obj.longitude,
-                   'id_measurement': obj.id_measurement,
-                   'season': obj.season,
-                   'deployment': obj.deployment
+        data[i] = {'date': obj.Measurement.date,
+                   'latitude': obj.Measurement.latitude,
+                   'altitude': obj.Measurement.altitude,
+                   'longitude': obj.Measurement.longitude,
+                   'id_measurement': obj.Measurement.id_measurement,
+                   'season': obj.Seasons.season_id,
+                   'deployment': obj.Seasons.deployment_id
                    }
         i += 1
     return (data)
