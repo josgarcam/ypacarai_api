@@ -9,6 +9,7 @@ def seasons_all():
     i = 0
     for obj in ob:
         data[i] = {'id_movement': obj.sea_id_movement,
+                   'season_id': obj.sea_season_id,
                    'deployment_id': obj.sea_deployment_id,
                    'mission_id': obj.sea_mission_id,
                    'mission_value': obj.sea_mission_value,
