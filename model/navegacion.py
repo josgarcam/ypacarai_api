@@ -10,11 +10,11 @@ def navegacion_all():
     data = {}
     i = 0
     for obj in ob:
-        data[i] = {'drone_id': obj.id_drone,
-                   'latitude': obj.latitude,
-                   'longitude': obj.longitude,
-                   'altitude': obj.altitude,
-                   'date': obj.date}
+        data[i] = {'drone_id': obj.nav_id_drone,
+                   'latitude': obj.nav_latitude,
+                   'longitude': obj.nav_longitude,
+                   'altitude': obj.nav_altitude,
+                   'date': obj.nav_date}
         i += 1
 
     return (data)
@@ -23,21 +23,21 @@ def navegacion_all():
 def navegacion_drone_id_and_date(drone_id, sdate, edate):
 
     if sdate and edate:
-        ob = db.session.query(Navegacion).filter(Navegacion.id_drone == drone_id). \
-            filter(Navegacion.date >= datetime.strptime(sdate, '%m-%d-%y')). \
-            filter(Navegacion.date <= datetime.strptime(edate, '%m-%d-%y')) \
-            .order_by(Navegacion.date.asc())
+        ob = db.session.query(Navegacion).filter(Navegacion.nav_id_drone == drone_id). \
+            filter(Navegacion.nav_date >= datetime.strptime(sdate, '%m-%d-%y')). \
+            filter(Navegacion.nav_date <= datetime.strptime(edate, '%m-%d-%y')) \
+            .order_by(Navegacion.nav_date.asc())
 
     else:
-        ob = db.session.query(Navegacion).filter_by(id_drone=drone_id)
+        ob = db.session.query(Navegacion).filter_by(nav_id_drone=drone_id)
 
     data = {}
     i = 0
     for obj in ob:
-        data[i] = {'latitude': obj.latitude,
-                   'longitude': obj.longitude,
-                   'altitude': obj.altitude,
-                   'date': obj.date}
+        data[i] = {'latitude': obj.nav_latitude,
+                   'longitude': obj.nav_longitude,
+                   'altitude': obj.nav_altitude,
+                   'date': obj.nav_date}
         i += 1
 
     return (data)

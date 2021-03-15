@@ -8,19 +8,19 @@ def drones_all():
     i = 0
     data = {}
     for obj in ob:
-        data[i] = {'drone_id': obj.id_drone,
-                   'name': obj.drone_features}
+        data[i] = {'drone_id': obj.dro_id_drone,
+                   'name': obj.dro_drone_features}
         i += 1
 
     return (data)
 
 def drones_id(id_drone):
     db.Base.metadata.create_all(db.engine)
-    ob = db.session.query(Drones).filter_by(id_drone=id_drone)
+    ob = db.session.query(Drones).filter_by(dro_id_drone=id_drone)
     i = 0
     data = {}
     for obj in ob:
-        data[i] = {'descp': obj.drone_features}
+        data[i] = {'descp': obj.dro_drone_features}
         i += 1
 
     return (data)
