@@ -6,7 +6,7 @@ SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.
 sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
 
 from flask import Flask, request
-from model.navegacion import navegacion_all, navegacion_drone_id_and_date
+from model.navegacion import navegacion_all, navegacion_drone_id_and_date, navegacion_season
 from model.drones import drones_all, drones_id
 from model.measurement import measurement_point_all, measurement_point_season, measurement_point_droneId
 from model.seasons import seasons_all, seasons_season
@@ -28,6 +28,12 @@ def navegacion_filter_by_drone_id_and_date(drone_id):
     sdate = request.args.get('sdate','')
     edate = request.args.get('edate','')
     return to_json(navegacion_drone_id_and_date(drone_id, sdate, edate))
+
+@app.route('/Navegacion/Season/<int:season>', methods=['GET'])
+def navegacion_season_controller(season):
+    drone_id = request.args.get('drone_id', '')
+    deployment = request.args.get('deployment', '')
+    return to_json(navegacion_season(season, deployment, drone_id))
 
 #### ********* Drones ******** ####
 
