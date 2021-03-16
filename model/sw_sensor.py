@@ -106,7 +106,6 @@ def sw_droneId(drone_id, season, deployment):
 
     for obj in ob:
         data[i] = {'date': obj.Measurement.mea_date,
-                   'id_drone': obj.Measurement.mea_id_drone,
                    'latitude': obj.Measurement.mea_latitude,
                    'altitude': obj.Measurement.mea_altitude,
                    'longitude': obj.Measurement.mea_longitude,
