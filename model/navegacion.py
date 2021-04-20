@@ -32,7 +32,8 @@ def navegacion_drone_id_and_date(drone_id, sdate, edate):
             .order_by(Navegacion.nav_date.asc())
 
     else:
-        ob = db.session.query(Navegacion).filter_by(nav_id_drone=drone_id)
+        ob = db.session.query(Navegacion, Seasons).join(Seasons, Navegacion.nav_id_movement == Seasons.sea_id_movement).\
+            filter(Navegacion.nav_id_drone == drone_id)
 
     data = {}
     i = 0
